@@ -56,6 +56,8 @@ def _reraise_errors(wrapper,
 
 def pickle_loads(s, load=pickle_load):
     # used to support buffer objects
+    if sys.version_info[0] == 3:  # pragma: no cover
+        return load(BytesIO(s), encoding='bytes')
     return load(BytesIO(s))
 
 
